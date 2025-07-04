@@ -1,17 +1,44 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import MyPage from './pages/MyPage';
+import GraduationRequirementsPage from './pages/GraduationRequirementsPage'; // 페이지 import
+import { useAuth } from './context/AuthContext';
 import './App.css';
 
+// 로그아웃 버튼을 위한 별도 컴포넌트
+function LogoutButton() {
+  const { logoutAction } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutAction();
+    navigate('/login');
+  };
+
+  return <button onClick={handleLogout} className="nav-button">로그아웃</button>;
+}
+
 function App() {
+  const { token } = useAuth(); // 토큰 상태 가져오기
+
   return (
     <BrowserRouter>
       <div className="container">
         <div className="top-bar">
           <nav className="auth-nav">
-            <Link to="/login" className="nav-button">로그인</Link>
-            <Link to="/signup" className="nav-button">회원가입</Link>
+            {token ? (
+              <>
+                <Link to="/mypage" className="nav-button">마이페이지</Link>
+                <LogoutButton />
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="nav-button">로그인</Link>
+                <Link to="/signup" className="nav-button">회원가입</Link>
+              </>
+            )}
           </nav>
         </div>
         <header>
@@ -25,6 +52,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/requirements" element={<GraduationRequirementsPage />} /> {/* 라우트 추가 */}
         </Routes>
       </div>
     </BrowserRouter>

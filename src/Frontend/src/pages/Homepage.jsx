@@ -1,37 +1,40 @@
-import { useState, useEffect } from 'react';
-import '../App.css'; // 경로 수정: './App.css' -> '../App.css'
+import { useAuth } from '../context/AuthContext';
+import GraduationProgressCard from '../components/GraduationProgressCard';
+import RecommendedCourses from '../components/RecommendedCourses';
+import '../App.css';
 
-// 컴포넌트 이름 수정: App -> HomePage
-export default function HomePage() { 
-  const [courses, setCourses] = useState([]);
+// 로그인하지 않은 사용자를 위한 컴포넌트
+function PublicHomePage() {
+  return (
+    <div className="public-welcome">
+      <h2>Campus Compass에 오신 것을 환영합니다!</h2>
+      <p>최적의 수강 계획을 위한 개인 맞춤형 강의 추천 시스템입니다.</p>
+      <p>로그인하고 맞춤형 추천을 받아보세요.</p>
+    </div>
+  );
+}
 
-  const fetchCourses = async () => {
-    try {
-      const response = await fetch('http://localhost:5001/api/courses');
-      const data = await response.json();
-      setCourses(data);
-    } catch (error) {
-      console.error("Failed to fetch courses:", error);
-    }
-  };
+// 로그인한 사용자를 위한 대시보드 컴포넌트
+function Dashboard() {
+  const { user } = useAuth();
+  const userName = user ? user.email : '사용자';
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
+  return (
+    <div className="dashboard">
+      <h2>{userName}님을 위한 대시보드</h2>
+      <GraduationProgressCard />
+      <RecommendedCourses />
+      {/* 여기에 다른 대시보드 카드(알림, 피드백 등)를 추가할 수 있습니다. */}
+    </div>
+  );
+}
 
-  // 불필요한 container, header 제거하고 main만 남김
+export default function HomePage() {
+  const { token } = useAuth();
+
   return (
     <main>
-      <div className="course-list">
-        {courses.map((course) => (
-          <div key={course.id} className="course-card">
-            <h3>{course.name}</h3>
-            <p>
-              {course.professor} 교수님 | {course.category}
-            </p>
-          </div>
-        ))}
-      </div>
+      {token ? <Dashboard /> : <PublicHomePage />}
     </main>
   );
 }
