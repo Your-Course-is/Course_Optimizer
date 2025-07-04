@@ -6,111 +6,112 @@ export default function GraduationRequirementsPage() {
   const { token } = useAuth();
   const [takenCourses, setTakenCourses] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [selectedCourseId, setSelectedCourseId] = useState('');
+  const [error, setError] = useState('');
 
-  // 데이터 로딩 함수
-  const fetchData = async () => {
-    if (!token) return;
-    setLoading(true);
-    try {
-      const [takenRes, allRes] = await Promise.all([
-        fetch('http://localhost:5001/api/user/courses', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('http://localhost:5001/api/courses/all')
-      ]);
-      const takenData = await takenRes.json();
-      const allData = await allRes.json();
-      setTakenCourses(takenData);
-      setAllCourses(allData);
-    } catch (error) {
-      console.error("데이터 로딩 실패:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Fetch taken courses and all courses
   useEffect(() => {
+    if (!token) return;
+
+    const fetchData = async () => {
+      try {
+        // Fetch taken courses
+        const takenRes = await fetch('http://localhost:5001/api/user/courses', {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const takenData = await takenRes.json();
+        if (!takenRes.ok) throw new Error(takenData.error || '이수 과목 로딩 실패');
+        setTakenCourses(takenData);
+
+        // Fetch all courses
+        const allRes = await fetch('http://localhost:5001/api/courses/all');
+        const allData = await allRes.json();
+        if (!allRes.ok) throw new Error(allData.error || '전체 과목 로딩 실패');
+        setAllCourses(allData);
+        if (allData.length > 0) {
+          setSelectedCourseId(allData[0].id);
+        }
+
+      } catch (err) {
+        setError(err.message);
+      }
+    };
     fetchData();
   }, [token]);
 
-  // 과목 추가 핸들러
-  const handleAddCourse = async (courseId) => {
+  const handleAddCourse = async (e) => {
+    e.preventDefault();
+    if (!selectedCourseId) return;
     try {
-      const response = await fetch('http://localhost:5001/api/user/courses', {
+      const res = await fetch('http://localhost:5001/api/user/courses', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ course_id: courseId }),
+        body: JSON.stringify({ course_id: selectedCourseId }),
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error);
-      await fetchData(); // 목록 새로고침
-      setSearchTerm(''); // 검색창 초기화
-    } catch (error) {
-      alert(error.message);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || '과목 추가 실패');
+      setTakenCourses([...takenCourses, data.course]);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
-  // 과목 삭제 핸들러
-  const handleRemoveCourse = async (courseId) => {
-    if (!window.confirm("정말로 삭제하시겠습니까?")) return;
+  const handleDeleteCourse = async (courseId) => {
     try {
-      const response = await fetch(`http://localhost:5001/api/user/courses/${courseId}`, {
+      const res = await fetch(`http://localhost:5001/api/user/courses/${courseId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` },
       });
-      if (!response.ok) throw new Error('삭제 실패');
-      await fetchData(); // 목록 새로고침
-    } catch (error) {
-      alert(error.message);
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || '과목 삭제 실패');
+      }
+      setTakenCourses(takenCourses.filter(course => course.id !== courseId));
+    } catch (err) {
+      setError(err.message);
     }
   };
 
-  const filteredCourses = searchTerm
-    ? allCourses.filter(course =>
-        course.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        !takenCourses.some(tc => tc.id === course.id) // 이미 이수한 과목은 제외
-      ).slice(0, 5) // 최대 5개만 보여줌
-    : [];
-
-  if (loading) return <div>로딩 중...</div>;
-
   return (
-    <div className="requirements-container">
-      <h2>졸업요건 관리</h2>
+    <main>
+      <h2>졸업요건 및 이수현황 관리</h2>
+      {error && <p className="error-message">{error}</p>}
       
-      <div className="requirements-section">
-        <h3>이수 내역 추가</h3>
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="과목명 검색..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="course-search-input"
-          />
-          {filteredCourses.length > 0 && (
-            <ul className="search-results">
-              {filteredCourses.map(course => (
-                <li key={course.id} onClick={() => handleAddCourse(course.id)}>
-                  {course.name} ({course.professor})
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+      {/* 졸업요건 진행도 (Placeholder) */}
+      <div className="dashboard-card">
+        <h3>나의 졸업 진행도</h3>
+        <p>총 이수 학점: {takenCourses.length * 3} / 130</p>
+        {/* 추후에 더 상세한 시각화 컴포넌트로 교체 */}
       </div>
 
-      <div className="requirements-section">
-        <h3>나의 이수 현황 ({takenCourses.length}과목)</h3>
+      {/* 이수 과목 관리 */}
+      <div className="dashboard-card">
+        <h3>이수 과목 추가</h3>
+        <form onSubmit={handleAddCourse} className="add-course-form">
+          <select 
+            value={selectedCourseId} 
+            onChange={(e) => setSelectedCourseId(e.target.value)}
+          >
+            {allCourses.map(course => (
+              <option key={course.id} value={course.id}>{course.name}</option>
+            ))}
+          </select>
+          <button type="submit">추가하기</button>
+        </form>
+      </div>
+
+      <div className="dashboard-card">
+        <h3>나의 이수 내역</h3>
         <ul className="taken-courses-list">
-          {takenCourses.length > 0 ? takenCourses.map(course => (
+          {takenCourses.map(course => (
             <li key={course.id}>
               <span>{course.name} ({course.category})</span>
-              <button onClick={() => handleRemoveCourse(course.id)} className="remove-btn">삭제</button>
+              <button onClick={() => handleDeleteCourse(course.id)} className="delete-btn">삭제</button>
             </li>
-          )) : <p>아직 이수한 과목이 없습니다.</p>}
+          ))}
         </ul>
+        {takenCourses.length === 0 && <p>아직 이수한 과목이 없습니다.</p>}
       </div>
-    </div>
+    </main>
   );
 }

@@ -31,6 +31,8 @@ function App() {
             {token ? (
               <>
                 <Link to="/mypage" className="nav-button">마이페이지</Link>
+                {/* 졸업요건 페이지 이동 버튼 추가 */}
+                <Link to="/requirements" className="nav-button">졸업요건</Link>
                 <LogoutButton />
               </>
             ) : (
@@ -53,7 +55,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/requirements" element={<GraduationRequirementsPage />} /> {/* 라우트 추가 */}
+          {/* 졸업요건 페이지 라우트 추가 */}
+          <Route path="/requirements" element={<GraduationRequirementsPage />} />
         </Routes>
       </div>
     </BrowserRouter>

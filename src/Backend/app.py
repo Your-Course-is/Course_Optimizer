@@ -17,21 +17,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your-very-secret-key-for-jwt' # 실제 프로젝트에서는 더 복잡한 키를 사용하세요.
 db = SQLAlchemy(app)
 
-# --- 신규 DB 모델 정의 ---
-class Course(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    professor = db.Column(db.String(50))
-    category = db.Column(db.String(50))
-    grade = db.Column(db.Integer)
-
-class UserTakenCourse(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('taken_courses', lazy=True))
-    course = db.relationship('Course', backref=db.backref('takers', lazy=True))
-
 # --- User 모델(테이블) 정의 (변경 없음) ---
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,6 +28,23 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+# --- Course 및 UserTakenCourse 모델 추가 ---
+class Course(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    professor = db.Column(db.String(50))
+    category = db.Column(db.String(50)) # 예: 전공필수, 전공선택, 교양
+    credits = db.Column(db.Integer, nullable=False, default=3)
+
+class UserTakenCourse(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    
+    user = db.relationship('User', backref=db.backref('taken_courses', lazy=True))
+    course = db.relationship('Course', backref=db.backref('takers', lazy=True))
+
 
 # --- JWT 토큰 검증을 위한 데코레이터 (변경 없음) ---
 def token_required(f):
@@ -82,16 +84,14 @@ def add_user_course(current_user):
     data = request.get_json()
     course_id = data.get('course_id')
     if not course_id:
-        return jsonify({"error": "Course ID is required"}), 400
-    
-    # 이미 추가된 과목인지 확인
+        return jsonify({"error": "course_id가 필요합니다."}), 400
     if UserTakenCourse.query.filter_by(user_id=current_user.id, course_id=course_id).first():
         return jsonify({"error": "이미 이수한 과목입니다."}), 409
-
     new_taken_course = UserTakenCourse(user_id=current_user.id, course_id=course_id)
     db.session.add(new_taken_course)
     db.session.commit()
-    return jsonify({"message": "이수 과목이 추가되었습니다."}), 201
+    course = Course.query.get(course_id)
+    return jsonify({"message": f"'{course.name}' 과목이 추가되었습니다.", "course": {"id": course.id, "name": course.name, "category": course.category}}), 201
 
 @app.route('/api/user/courses/<int:course_id>', methods=['DELETE'])
 @token_required
@@ -164,27 +164,25 @@ def get_current_user(current_user):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-        # Course 테이블에 데이터가 없으면 초기 데이터 추가
-        if Course.query.count() == 0:
-            initial_courses = [
-                {"id": 1, "name": "공학수학", "professor": "이수진", "category": "전공기초", "grade": 1},
-                {"id": 2, "name": "생산관리", "professor": "박현우", "category": "전공필수", "grade": 2},
-                {"id": 3, "name": "데이터 분석 및 시각화", "professor": "김민준", "category": "전공선택", "grade": 3},
-                {"id": 4, "name": "통계학개론", "professor": "최영희", "category": "전공기초", "grade": 1},
-                {"id": 5, "name": "Python 프로그래밍", "professor": "강민호", "category": "교양", "grade": 1}
-            ]
-            for c_data in initial_courses:
-                course = Course(**c_data)
-                db.session.add(course)
-            db.session.commit()
-            print("초기 강의 데이터가 Course 테이블에 추가되었습니다.")
-        
-        # admin 계정 생성 로직 (변경 없음)
         if not User.query.filter_by(email='admin').first():
             admin_user = User(email='admin')
             admin_user.set_password('admin')
             db.session.add(admin_user)
             db.session.commit()
             print("디버깅용 admin 계정이 생성되었습니다.")
+        
+        # 초기 강의 데이터 추가
+        if Course.query.count() == 0:
+            initial_courses = [
+                Course(name='공학수학', professor='이수진', category='전공기초', credits=3),
+                Course(name='생산관리', professor='박현우', category='전공필수', credits=3),
+                Course(name='데이터 분석 및 시각화', professor='김민준', category='전공선택', credits=3),
+                Course(name='통계학개론', professor='최유리', category='전공기초', credits=3),
+                Course(name='Python 프로그래밍', professor='강태오', category='전공기초', credits=3),
+                Course(name='인간공학', professor='윤서아', category='전공필수', credits=3)
+            ]
+            db.session.bulk_save_objects(initial_courses)
+            db.session.commit()
+            print("초기 강의 데이터가 생성되었습니다.")
             
     app.run(debug=True, port=5001)
