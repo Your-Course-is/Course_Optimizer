@@ -1,3 +1,57 @@
+/* 개선된 다크 모드 색상 팔레트 */
+:root {
+  /* 기본 배경 - 더 따뜻한 톤 */
+  --bg-primary: #0f0f23;
+  --bg-secondary: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-accent: #0f3460;
+  
+  /* 텍스트 - 더 선명하고 읽기 쉽게 */
+  --text-primary: #e6e6fa;
+  --text-secondary: #b8b8d1;
+  --text-muted: #8b8bb8;
+  
+  /* 브랜드 색상 - 더 생동감 있게 */
+  --primary-color: #4f46e5;
+  --primary-light: #6366f1;
+  --primary-dark: #3730a3;
+  
+  /* 액센트 색상 - 더 화려하게 */
+  --success-color: #10b981;
+  --success-light: #34d399;
+  --warning-color: #f59e0b;
+  --warning-light: #fbbf24;
+  --info-color: #3b82f6;
+  --info-light: #60a5fa;
+  --danger-color: #ef4444;
+  --danger-light: #f87171;
+  
+  /* 그라데이션 */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  
+  /* 추천 카드 색상 - 더 화려하게 */
+  --required-color: #ff6b6b;
+  --required-bg: rgba(255, 107, 107, 0.15);
+  --required-border: rgba(255, 107, 107, 0.4);
+  
+  --ready-color: #4ecdc4;
+  --ready-bg: rgba(78, 205, 196, 0.15);
+  --ready-border: rgba(78, 205, 196, 0.4);
+  
+  --elective-color: #45b7d1;
+  --elective-bg: rgba(69, 183, 209, 0.15);
+  --elective-border: rgba(69, 183, 209, 0.4);
+}
+
+/* 전체 다크 테마 기본 설정 */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -6,7 +60,7 @@
 }
 
 .description {
-  color: #888;
+  color: var(--text-muted);
 }
 
 .container {
@@ -23,39 +77,52 @@
 }
 
 .course-card {
-  background-color: #2f2f2f;
-  border-radius: 8px;
-  padding: 1.5rem;
-  border: 1px solid #444;
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transition: all 0.3s ease;
 }
 
 .course-card:hover {
-  transform: translateY(-5px);
-  border-color: #646cff;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 
 .course-card h3 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .course-card p {
   margin: 0;
   font-size: 0.9em;
-  color: #aaa;
+  color: var(--text-secondary);
 }
 
-/* --- 추가된 스타일 --- */
-
-/* 최상단 바 */
+/* --- 최상단 바 --- */
 .top-bar {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* 헤더 네비게이션 */
@@ -73,28 +140,43 @@ header {
 }
 
 .nav-button {
-  background-color: #444;
+  background: var(--gradient-primary);
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   text-decoration: none;
   font-size: 0.9em;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
 }
 
 .nav-button:hover {
-  background-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
 }
-
 
 /* 로그인/회원가입 폼 */
 .auth-container {
   max-width: 400px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #2f2f2f;
-  border-radius: 8px;
-  border: 1px solid #444;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
 }
 
 .auth-form {
@@ -105,57 +187,202 @@ header {
 
 .auth-form input {
   padding: 0.8rem;
-  border-radius: 4px;
-  border: 1px solid #555;
-  background-color: #333;
-  color: #fff;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
 .auth-form button {
   padding: 0.8rem;
-  border-radius: 4px;
+  border-radius: 8px;
   border: none;
-  background-color: #646cff;
+  background: var(--gradient-primary);
   color: #fff;
   font-size: 1em;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
 }
 
 .auth-form button:hover {
-  background-color: #535bf2;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
 }
 
 .auth-container p {
   margin-top: 1.5rem;
   font-size: 0.9em;
   text-align: center;
+  color: var(--text-secondary);
 }
 
-/* --- 대시보드 스타일 --- */
+/* --- 홈페이지 스타일 개선 --- */
 .dashboard {
+  background: var(--bg-primary);
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.dashboard-card {
-  background-color: #2f2f2f;
-  border-radius: 8px;
-  padding: 1.5rem;
-  border: 1px solid #444;
+/* 배경 패턴 추가 */
+.dashboard::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 대시보드 헤더 개선 */
+.dashboard h2 {
+  color: var(--text-primary);
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  position: relative;
+}
+
+.dashboard h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+/* 웰컴 메시지 개선 */
+.public-welcome {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--bg-card);
+  border-radius: 20px;
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.public-welcome::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.public-welcome h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.public-welcome p {
+  font-size: 1.2em;
+  color: var(--text-secondary);
+  margin: 15px 0;
+  line-height: 1.6;
+}
+
+.public-welcome p:last-child {
+  font-size: 1.1em;
+  color: var(--primary-light);
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+/* 대시보드 카드 개선 */
+.dashboard-card,
+.graduation-progress-card,
+.detailed-graduation-progress,
+.recommendation-section {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
   text-align: left;
 }
 
-.dashboard-card h3 {
+.dashboard-card:hover,
+.graduation-progress-card:hover,
+.detailed-graduation-progress:hover,
+.recommendation-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 카드 헤더에 그라데이션 보더 */
+.dashboard-card::before,
+.graduation-progress-card::before,
+.detailed-graduation-progress::before,
+.recommendation-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+}
+
+.dashboard-card h3,
+.graduation-progress-card h3,
+.detailed-graduation-progress h3 {
+  color: var(--text-primary);
   margin-top: 0;
-  border-bottom: 1px solid #555;
+  font-size: 1.4em;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 0.75rem;
   margin-bottom: 1rem;
 }
 
+/* 프로그레스 바 개선 */
 .progress-item {
   display: flex;
   align-items: center;
@@ -165,27 +392,63 @@ header {
 
 .progress-item span:first-child {
   width: 80px;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .progress-bar-container {
   flex-grow: 1;
-  height: 10px;
-  background-color: #444;
-  border-radius: 5px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .progress-bar {
   height: 100%;
-  background-color: #646cff;
-  border-radius: 5px;
+  border-radius: 12px;
+  transition: all 0.8s ease;
+  position: relative;
+  background: linear-gradient(90deg, 
+    var(--primary-color) 0%, 
+    var(--primary-light) 50%, 
+    var(--primary-color) 100%);
+  background-size: 200% 100%;
+  animation: progressShine 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  min-width: 30px;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
 }
 
-.public-welcome {
-  padding: 4rem 2rem;
-  text-align: center;
-  background-color: #2f2f2f;
-  border-radius: 8px;
+.progress-bar.completed {
+  background: linear-gradient(90deg, 
+    var(--success-color) 0%, 
+    var(--success-light) 50%, 
+    var(--success-color) 100%);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+  animation: completedPulse 2s ease-in-out infinite;
+}
+
+@keyframes progressShine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes completedPulse {
+  0%, 100% { box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4); }
+  50% { box-shadow: 0 4px 16px rgba(16, 185, 129, 0.6); }
+}
+
+.progress-percentage {
+  color: white;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 /* --- 졸업요건 페이지 스타일 --- */
@@ -196,20 +459,36 @@ header {
 
 .add-course-form select {
   flex-grow: 1;
-  padding: 0.5rem;
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #555;
-  border-radius: 4px;
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.add-course-form select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
 .add-course-form button {
-  padding: 0.5rem 1rem;
+  padding: 12px 24px;
   border: none;
-  background-color: #646cff;
-  color: #fff;
-  border-radius: 4px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.add-course-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
 }
 
 .taken-courses-list {
@@ -219,32 +498,466 @@ header {
 }
 
 .taken-courses-list li {
+  background: var(--bg-secondary);
+  margin: 8px 0;
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #444;
+  transition: all 0.3s ease;
 }
 
-.taken-courses-list li:last-child {
-  border-bottom: none;
+.taken-courses-list li:hover {
+  background: var(--bg-accent);
+  transform: translateX(4px);
 }
 
 .delete-btn {
-  background-color: #ff4d4d;
+  background: var(--gradient-secondary);
   color: white;
   border: none;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
+  padding: 8px 16px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.8em;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
 }
 
+.delete-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(245, 87, 108, 0.4);
+}
+
+/* 에러 메시지 스타일 */
 .error-message {
-  color: #ff4d4d;
-  background-color: rgba(255, 77, 77, 0.1);
-  padding: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger-color);
+  padding: 12px 16px;
   border-radius: 8px;
+  border-left: 4px solid var(--danger-color);
+  margin: 16px 0;
+  font-weight: 500;
   text-align: center;
-  margin-bottom: 1rem;
+}
+
+/* --- 추천 시스템 스타일 --- */
+.recommended-courses {
+  margin: 20px 0;
+}
+
+.recommendation-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.section-title {
+  margin: 0 0 20px 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--text-primary);
+  position: relative;
+  padding-left: 12px;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 20px;
+  border-radius: 2px;
+}
+
+.required-title { 
+  color: var(--required-color); 
+}
+.required-title::before {
+  background: var(--required-color);
+}
+
+.ready-title { 
+  color: var(--ready-color); 
+}
+.ready-title::before {
+  background: var(--ready-color);
+}
+
+.elective-title { 
+  color: var(--elective-color); 
+}
+.elective-title::before {
+  background: var(--elective-color);
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+/* 추천 카드 개선 */
+.required-card {
+  border-color: var(--required-border);
+  background: var(--required-bg);
+}
+
+.required-card::before {
+  background: linear-gradient(90deg, var(--required-color), var(--danger-light));
+}
+
+.required-card:hover {
+  border-color: var(--required-color);
+  box-shadow: 0 12px 30px rgba(255, 107, 107, 0.3);
+}
+
+.ready-card {
+  border-color: var(--ready-border);
+  background: var(--ready-bg);
+}
+
+.ready-card::before {
+  background: linear-gradient(90deg, var(--ready-color), var(--success-light));
+}
+
+.ready-card:hover {
+  border-color: var(--ready-color);
+  box-shadow: 0 12px 30px rgba(78, 205, 196, 0.3);
+}
+
+.elective-card {
+  border-color: var(--elective-border);
+  background: var(--elective-bg);
+}
+
+.elective-card::before {
+  background: linear-gradient(90deg, var(--elective-color), var(--info-light));
+}
+
+.elective-card:hover {
+  border-color: var(--elective-color);
+  box-shadow: 0 12px 30px rgba(69, 183, 209, 0.3);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.course-icon {
+  font-size: 1.2em;
+}
+
+.course-priority {
+  font-size: 0.8em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.course-name {
+  margin: 0 0 8px 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.course-info {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 8px;
+}
+
+.course-code {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.course-credits {
+  color: var(--text-secondary);
+  font-weight: bold;
+}
+
+.course-description {
+  margin: 8px 0;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.recommendation-reason {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.recommendation-reason small {
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* 로딩 애니메이션 개선 */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+  font-style: italic;
+  position: relative;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  animation: loadingBar 2s ease-in-out infinite;
+}
+
+@keyframes loadingBar {
+  0%, 100% { width: 20px; opacity: 0.5; }
+  50% { width: 60px; opacity: 1; }
+}
+
+.no-recommendations {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  margin: 20px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- 상세 졸업 진행도 스타일 --- */
+.progress-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-header-section h3 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 1.3em;
+}
+
+.overall-summary {
+  color: var(--text-secondary);
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.detailed-progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailed-progress-item.total-progress {
+  padding: 16px;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-label {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.95em;
+}
+
+.progress-text {
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  font-family: 'Consolas', monospace;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.graduation-status {
+  text-align: center;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.status-message {
+  color: var(--text-secondary);
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.status-message.completed {
+  color: var(--success-color);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* 학기 정보 및 팁 스타일 */
+.semester-info {
+  background: var(--bg-secondary);
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0 24px 0;
+  border-left: 4px solid var(--primary-color);
+}
+
+.semester-info p {
+  margin: 4px 0;
+  color: var(--text-secondary);
+  font-size: 0.95em;
+}
+
+.semester-note {
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.semester-note small {
+  color: var(--text-muted);
+  font-size: 0.85em;
+  line-height: 1.4;
+}
+
+.semester-tips {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 30px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.semester-tips h4 {
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+  font-size: 1.1em;
+}
+
+.semester-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.semester-tips li {
+  padding: 8px 0;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.semester-tips li strong {
+  color: var(--text-primary);
+}
+
+/* 스크롤바 개선 */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 6px;
+  border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 10px;
+  }
+  
+  .dashboard h2 {
+    font-size: 2em;
+  }
+  
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-card,
+  .graduation-progress-card,
+  .detailed-graduation-progress,
+  .recommendation-section {
+    padding: 16px;
+    margin: 10px 0;
+  }
+
+  .progress-header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .progress-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .public-welcome {
+    padding: 40px 15px;
+    margin: 20px 10px;
+  }
+
+  .public-welcome h2 {
+    font-size: 2em;
+  }
 }

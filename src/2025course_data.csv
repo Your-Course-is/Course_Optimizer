@@ -1,0 +1,62 @@
+﻿구분,교과목번호,교과목명(영문명),학점,학기
+전공기초,IE1500379,공학미적분학(Ⅰ)(Calculus in Engineering(Ⅰ)),3,1-1
+전공기초,IE1500214,일반물리학(Ⅰ)(General Physics(Ⅰ)),3,1-1
+전공기초,IE1500039,일반물리학실험(Ⅰ)(General Physics Laboratory(Ⅰ)),1,1-1
+전공기초,IE1500845,일반화학(Ⅰ)(General Chemistry)(Ⅰ),3,1-1
+전공기초,IE1501158,컴퓨터프로그래밍(Computer Programming),2,1-1
+전공기초,IE1600777,산업공학현장이해(Introduction to Industrial Engineering),1,1-1
+전공기초,IE1500570,공학선형대수학(Engineering Linear Algebra),3,1-2
+전공기초,IE1500215,일반물리학(Ⅱ)(General Physics(Ⅱ)),3,1-2
+전공기초,IE1500222,일반물리학실험(Ⅱ)(General Physics Laboratory(Ⅱ)),1,1-2
+전공기초,IE1501159,AI프로그래밍(AI Programming),3,1-2
+전공기초,IE1600732,CAD(Computer Aided Design),2,2-1
+전공필수,IE1600795,데이터구조및알고리즘(Data Structure and Algorithm),3,2-1
+전공필수,IE2400210,★◆공학통계(Ⅰ)(Engineering Statistics(Ⅰ)),3,2-1
+전공필수,IE2400216,◎★경영과학(Ⅰ)(Operations Research(Ⅰ)),3,2-1
+전공필수,IE2400212,제조공학(Manufacturing Engineering),3,2-1
+전공필수,IE2400211,★공학통계(Ⅱ)(Engineering Statistics(Ⅱ)),3,2-2
+전공필수,IE2400217,★경영과학(Ⅱ)(Operations Research(Ⅱ)),3,2-2
+전공필수,IE3400081,◎생산운영관리(Production and Operations Management),3,2-2
+전공필수,IE3500728,작업설계(Work Design),3,2-2
+전공필수,IE3500729,인간공학(Human Factors Engineering),3,3-1
+전공필수,IE2700637,◎품질관리론(Quality Control and management),3,3-2
+전공필수,IE2700699,★생산시스템공학(Manufacturing System Engineering),3,3-2
+전공필수,IE3400308,♣종합설계프로젝트(Capstone Design),3,4-1
+전공선택,IE2900176,이산수학(Discrete Mathematics),3,1-2
+전공선택,IE3600657,◆최적화개론(Introduction to Optimization),3,1-2
+전공선택,IE1500380,공학미적분학(II)(Calculus in Engineering(II)),3,1-2
+전공선택,IE3600658,머신러닝수학(Machine Learning Mathematics),3,2-1
+전공선택,IE3400084,★경제성공학(Engineering Economy),3,2-1
+전공선택,IE3600670,창의적공학설계(Creative Engineering Design),3,2-1
+전공선택,IE3300034,★기술경영(Management of Technology),3,2-2
+전공선택,IE3400653,최적화와계산지능(Optimization and Computational Intelligence),3,2-2
+전공선택,IE3500627,★◆산업데이터과학(Industrial Data Science),3,2-2
+전공선택,IE3600660,제조공학응용(Applications of Manufacturing Engineering),3,2-2
+전공선택,IE2400223,★◆데이터마이닝(Data Mining),3,3-1
+전공선택,IE3400078,★데이터베이스(Database),3,3-1
+전공선택,IE2700565,공급사슬관리(Supply Chain Management),3,3-1
+전공선택,IE3400241,확률과정론(Probabilistic Theory),3,3-1
+전공선택,IE3400649,산업안전공학(Industrial Safety Engineering),3,3-1
+전공선택,IE3500266,연구참여(Ⅰ)(Undergraduate Research(Ⅰ)),1,3-1
+전공선택,IE3500452,◆통계적선형모형(Linear Models in Data Science),3,3-1
+전공선택,IE3500732,제조자동화(Production Automation),3,3-1
+전공선택,IE3600664,최적화모형과응용(Optimization Models and Application),3,3-1
+전공선택,IE3600432,시설계획및물류시스템(Facilities Planning & Material Handling),3,3-1
+전공선택,IE2700642,◆시뮬레이션(Systems Simulation),3,3-2
+전공선택,IE3000627,★경영정보시스템(Management Information Systems),3,3-2
+전공선택,IE3500730,운영분석(Operations Analytics),3,3-2
+전공선택,IE3500731,실험설계및분석(Experimental Design and Analysis),3,3-2
+전공선택,IE3600168,★◆인공지능개론(Introduction to Artificial Intelligence),3,3-2
+전공선택,IE3600661,핀테크와산업(Fintech and Industry),3,3-2
+전공선택,IE2001262,◆산업인공지능응용(Industrial AI Applications),3,4-1
+전공선택,IE2001445,◆딥러닝(Deep Learning),3,4-1
+전공선택,IE2700581,신뢰성공학(Reliability Engineering),3,4-1
+전공선택,IE3500735,◆스마트제조(Smart Manufacturing),3,4-1
+전공선택,IE3600663,선형및비선형계획법(Linear and Nonlinear Programming),3,4-1
+전공선택,IE3600666,시뮬레이션설계및분석(Simulation Design and Analysis),3,4-1
+전공선택,IE3600668,금융공학개론(Introduction to Financial Engineering),3,4-1
+전공선택,IE3600671,★스마트서비스설계(Smart Service Design),3,4-1
+전공선택,IE2001280,다변량통계분석개론(Introduction to Multivariate Statistical Analysis),3,4-2
+전공선택,IE2700617,물류관리(Logistics Systems),3,4-2
+전공선택,IE3600667,생산정보시스템(Production Information System),3,4-2
+전공선택,IE3600669,◆강화학습개론(Introduction to Reinforcement Learning),3,4-2
