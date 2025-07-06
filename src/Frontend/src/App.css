@@ -49,7 +49,7 @@
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Noto Sans KR', 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -295,18 +295,40 @@ header {
 /* --- 홈페이지 스타일 개선 --- */
 /* 대시보드 완전 중앙 정렬 */
 .dashboard {
-  background: var(--bg-primary);
-  min-height: 100vh;
-  padding: 20px;
-  position: relative;
   width: 100%;
   max-width: 1200px;
+  min-height: 100vh;
   margin: 0 auto;
+  padding: 2rem;
+  background: var(--bg-primary);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   align-items: center;
-  justify-content: flex-start;
+  position: relative;
+}
+
+/* 대시보드 내부 모든 카드 컴포넌트 중앙 정렬 */
+.dashboard > * {
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* 대시보드 헤더 중앙 정렬 */
+.dashboard-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-header h2 {
+  width: 100%;
+  text-align: center;
+  margin: 0;
 }
 
 /* 배경 패턴 추가 */
@@ -425,7 +447,7 @@ header {
   overflow: hidden;
   transition: all 0.3s ease;
   text-align: left;
-  max-width: 1000px;
+  max-width: 1100px; /* 더 넓게 조정 */
   width: 100%;
   display: block !important;
   margin-left: auto !important;
@@ -864,12 +886,11 @@ header {
 .detailed-graduation-progress {
   background: var(--bg-card);
   border-radius: 12px;
-  padding: 24px;
-  margin: 20px auto !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  max-width: 1000px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
   width: 100%;
+  max-width: 900px;
   display: block;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -1027,19 +1048,19 @@ header {
 
 /* 메인 페이지 요소들 중앙 정렬 */
 main {
+  min-height: 100vh;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 1440px; /* 더 넓은 최대 너비 설정 */
+  background: var(--bg-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2rem;
+  margin: 0 auto; /* 중앙 정렬을 위해 추가 */
 }
 
-main h2 {
-  text-align: center;
-  width: 100%;
-  margin-bottom: 30px;
+main h2, .page-title {
+  color: var(--text-primary);
 }
 
 /* 강제 중앙 정렬을 위한 추가 스타일 */
@@ -1089,6 +1110,12 @@ main h2 {
     padding: 10px;
     margin: 0 auto;
     align-items: center;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 2.5rem 2rem;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   }
   
   .dashboard h2 {
@@ -1132,6 +1159,9 @@ main h2 {
     margin: 20px auto;
     width: calc(100% - 20px);
     max-width: 100%;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   }
 
   .public-welcome h2 {
@@ -1191,6 +1221,8 @@ main h2 {
   justify-content: center;
   gap: 16px;
   margin-bottom: 30px;
+  width: 100%;
+  text-align: center;
 }
 
 .dashboard-logo {
@@ -1201,4 +1233,103 @@ main h2 {
 
 .dashboard-header h2 {
   margin: 0;
+}
+
+/* App.css 또는 Homepage 관련 CSS에 추가 */
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+}
+
+.public-welcome {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 2.5rem 2rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.dashboard {
+  max-width: 900px;
+  width: 100%;  /* 너비 100% 추가 */
+  margin: 40px auto;
+  padding: 2.5rem 2rem;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 메인 컨테이너 스타일 수정 */
+main {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* 대시보드 카드 스타일 수정 */
+.dashboard-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* 졸업 진행도 카드 스타일 수정 */
+.graduation-progress-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  background: var(--bg-card);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.graduation-progress-card .progress-item {
+  width: 100%;
+  max-width: 700px;
+}
+
+.recommendation-section {
+  width: 80%; /* 고정 너비 대신 부모 요소의 80% */
+  margin: 20px auto !important;
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+  .recommendation-section {
+    width: 90%; /* 모바일에서는 90%로 조정 */
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendation-section {
+    width: 95%; /* 더 작은 화면에서는 95%로 조정 */
+  }
 }

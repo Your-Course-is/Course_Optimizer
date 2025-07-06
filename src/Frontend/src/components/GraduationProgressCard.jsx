@@ -18,7 +18,7 @@ export default function GraduationProgressCard({ takenCourses = [] }) {
   });
 
   return (
-    <div className="dashboard-card">
+    <div className="graduation-progress-card dashboard-card">
       <h3>졸업 진행도 요약</h3>
       {Object.entries(requirements).map(([category, required]) => {
         const taken = creditsByCategory[category] || 0;
