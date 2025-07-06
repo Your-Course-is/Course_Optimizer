@@ -18,9 +18,13 @@ function PublicHomePage() {
 // 로그인한 사용자를 위한 대시보드 컴포넌트
 function Dashboard() {
   const { user, token } = useAuth();
-  const userName = user ? user.email : '사용자';
   const [takenCourses, setTakenCourses] = useState([]);
-  const [userInfo, setUserInfo] = useState({ year: 2, major: '' });
+  const [userInfo, setUserInfo] = useState({ 
+    year: '',
+    name: '',
+    department: '',
+    email: user?.email || ''
+  });
 
   useEffect(() => {
     if (!token) return;
@@ -33,25 +37,46 @@ function Dashboard() {
         headers: { 'Authorization': `Bearer ${token}` } 
       })
     ]).then(([infoRes, coursesRes]) => {
+      if (!infoRes.ok || !coursesRes.ok) {
+        throw new Error('데이터 조회에 실패했습니다.');
+      }
       return Promise.all([infoRes.json(), coursesRes.json()]);
     }).then(([info, courses]) => {
-      setUserInfo(info);
+      // year를 숫자로 변환하여 저장
+      setUserInfo({
+        year: parseInt(info.year) || '',  // 문자열을 숫자로 변환
+        name: info.name || user?.email || '사용자',
+        department: info.department || '',
+        email: info.email || user?.email || ''
+      });
       if (Array.isArray(courses)) setTakenCourses(courses);
     }).catch(error => {
       console.error('데이터 조회 실패:', error);
-      setUserInfo({ year: 2, major: '' });
+      setUserInfo({
+        year: '',
+        name: user?.email || '사용자',
+        department: '',
+        email: user?.email || ''
+      });
       setTakenCourses([]);
     });
-  }, [token]);
+  }, [token, user]);
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h2>{userInfo.year}학년 {userName}님의 대시보드</h2>
+        <h2>
+          {userInfo.year ? `${userInfo.year}학년 ` : ''}
+          {userInfo.name}
+          님의 대시보드
+        </h2>
       </div>
       
       <GraduationProgressCard takenCourses={takenCourses} />
-      <RecommendedCourses takenCourses={takenCourses} userYear={userInfo.year} />
+      <RecommendedCourses 
+        takenCourses={takenCourses} 
+        userYear={parseInt(userInfo.year) || null}
+      />
     </div>
   );
 }

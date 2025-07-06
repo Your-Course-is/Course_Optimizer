@@ -3,10 +3,10 @@ import React from 'react';
 export default function GraduationProgressCard({ takenCourses = [] }) {
   // 졸업요건 (실제 기준에 맞게 숫자 수정)
   const requirements = {
-    '전공기초': 15,
-    '전공필수': 30,
-    '전공선택': 30,
-    '교양필수': 15,
+    '전공기초': 25,
+    '전공필수': 36,
+    '전공선택': 45,
+    '교양필수': 10,
     '교양선택': 15,
   };
 
@@ -34,7 +34,7 @@ export default function GraduationProgressCard({ takenCourses = [] }) {
         );
       })}
       <p style={{ marginTop: '1rem', fontSize: '0.9em', color: '#aaa' }}>
-        자세한 정보는 마이페이지에서 확인하세요.
+        자세한 정보는 졸업요건 탭에서 확인하세요.
       </p>
     </div>
   );

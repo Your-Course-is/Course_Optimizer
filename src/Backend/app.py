@@ -10,7 +10,13 @@ import csv
 
 # Flask 앱 생성 및 설정 (가장 먼저!)
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={
+    r"/*": {
+        "origins": ["http://localhost:5173"],  # React 개발 서버 주소
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Authorization", "Content-Type"]
+    }
+})
 
 # --- DB 및 JWT Secret Key 설정 ---
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -24,6 +30,9 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
+    name = db.Column(db.String(100))
+    department = db.Column(db.String(100))
+    year = db.Column(db.Integer)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -138,17 +147,17 @@ def get_recommendations(current_user):
 
 # --- 새로운 API 엔드포인트 추가 ---
 @app.route('/api/user/info', methods=['GET'])
-@token_required
-def get_user_info(current_user):
+@token_required  # 토큰 검증 데코레이터 추가
+def get_user_info(current_user):  # current_user 파라미터 추가
     try:
-        # 현재는 임시 데이터 반환 (나중에 DB에서 조회)
-        user_info = {
-            'year': 2,  # 임시로 2학년 설정
-            'major': '컴퓨터공학과'
-        }
-        return jsonify(user_info), 200
+        return jsonify({
+            "name": current_user.name,
+            "department": current_user.department,
+            "year": current_user.year,
+            "email": current_user.email
+        }), 200
     except Exception as e:
-        return jsonify({'error': '사용자 정보 조회 실패'}), 500
+        return jsonify({"error": str(e)}), 401
 
 @app.route('/api/next-semester-courses', methods=['POST'])
 @token_required
@@ -166,18 +175,18 @@ def get_next_semester_courses(current_user):
             'required': [
                 {
                     'id': 1,
-                    'name': '공학통계',
+                    'name': '공학통계(Ⅱ)',
                     'code': 'IE2400211',
                     'credits': 3,
-                    'description': '기본 자료구조와 알고리즘을 학습합니다.',
+                    'description': '산업공학에서 활용되는 다양한 기법들의 기반이 되는 통계 이론을 학습합니다.',
                     'reason': '전공 필수 과목입니다.'
                 },
                 {
                     'id': 2,
-                    'name': '경영과학',
+                    'name': '경영과학(Ⅱ)',
                     'code': 'IE2400217',
                     'credits': 3,
-                    'description': '데이터베이스 설계와 관리를 학습합니다.',
+                    'description': '복잡한 의사결정 문제 해결을 위한 수리적 모델링과 최적화 기법을 배웁니다.',
                     'reason': '전공 필수 과목입니다.'
                 }
             ],
@@ -187,7 +196,7 @@ def get_next_semester_courses(current_user):
                     'name': '제조공학응용',
                     'code': 'IE3600660',
                     'credits': 3,
-                    'description': '웹 개발의 기초를 학습합니다.',
+                    'description': '제조 현장에 적용되는 다양한 공정 기술과 그 활용 방법을 배웁니다.',
                     'reason': '제조공학 과목을 학습했습니다.'
                 }
             ],
@@ -197,8 +206,8 @@ def get_next_semester_courses(current_user):
                     'name': '산업데이터과학',
                     'code': 'IE3500627',
                     'credits': 3,
-                    'description': '산업 전반에 걸친 데이터분석 관련 기법을 배웁니다.',
-                    'reason': '2-2에 들어놓으면 앞으로의 강의를 수강할때 기틀을 잡을 수 있습니다.'
+                    'description': '산업 전반에서 활용되는 데이터 분석 기법을 학습합니다.',
+                    'reason': '2-2에 수강해두면 이후 전공 과목을 보다 쉽게 이해할 수 있습니다.'
                 }
             ]
         }
@@ -260,6 +269,36 @@ def get_current_user(current_user):
         "id": current_user.id,
         "email": current_user.email
     })
+
+@app.route('/api/user/update', methods=['PUT'])
+@token_required
+def update_user(current_user):
+    try:
+        data = request.get_json()
+        
+        # 사용자 정보 업데이트
+        current_user.name = data.get('name', current_user.name)
+        current_user.department = data.get('department', current_user.department)
+        current_user.year = data.get('year', current_user.year)
+        
+        db.session.commit()
+        
+        return jsonify({
+            "success": True,
+            "message": "사용자 정보가 업데이트되었습니다.",
+            "data": {
+                "name": current_user.name,
+                "department": current_user.department,
+                "year": current_user.year,
+                "email": current_user.email
+            }
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
 
 if __name__ == '__main__':
     with app.app_context():
