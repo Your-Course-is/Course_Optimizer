@@ -6,6 +6,7 @@ import MyPage from './pages/MyPage';
 import GraduationRequirementsPage from './pages/GraduationRequirementsPage'; // 페이지 import
 import { useAuth } from './context/AuthContext';
 import './App.css';
+import Logo from './components/Logo';
 
 // 로그아웃 버튼을 위한 별도 컴포넌트
 function LogoutButton() {
@@ -44,10 +45,15 @@ function App() {
           </nav>
         </div>
         <header>
-          <Link to="/" className="header-title-link">
-            <h1>Campus Compass</h1>
-          </Link>
-          <p className="description">최적의 수강 계획을 위한 강의 추천 시스템</p>
+          <div className="header-content">
+            <Link to="/" className="header-title-link">
+              <div className="brand-section">
+                <Logo size={60} className="header-logo" />
+                <h1 className="header-title">Campus Compass</h1>
+              </div>
+            </Link>
+            <p className="description">최적의 수강 계획을 위한 강의 추천 시스템</p>
+          </div>
         </header>
 
         <Routes>

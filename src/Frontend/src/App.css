@@ -50,13 +50,21 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
+/* 전체 컨테이너 완전 중앙 정렬 */
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .description {
@@ -67,6 +75,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .course-list {
@@ -74,6 +86,9 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
   text-align: left;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .course-card {
@@ -123,15 +138,62 @@ body {
   justify-content: flex-end;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* 헤더 네비게이션 */
+/* 헤더 완전 중앙 정렬 */
 header {
+  background: var(--bg-card);
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin: 0 auto 2rem auto;
+  max-width: 1200px;
+  width: 100%;
+  display: block;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 12px;
 }
 
 .header-title-link {
   text-decoration: none;
   color: inherit;
+}
+
+/* 브랜드 섹션 (로고 + 타이틀) */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.header-title {
+  font-size: 1.8em;
+  font-weight: 700;
+  margin: 0;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .auth-nav {
@@ -167,6 +229,10 @@ header {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .auth-container::before {
@@ -227,15 +293,20 @@ header {
 }
 
 /* --- 홈페이지 스타일 개선 --- */
+/* 대시보드 완전 중앙 정렬 */
 .dashboard {
   background: var(--bg-primary);
   min-height: 100vh;
   padding: 20px;
   position: relative;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 /* 배경 패턴 추가 */
@@ -254,7 +325,7 @@ header {
   z-index: -1;
 }
 
-/* 대시보드 헤더 개선 */
+/* 대시보드 제목 완전 중앙 정렬 */
 .dashboard h2 {
   color: var(--text-primary);
   margin-bottom: 30px;
@@ -266,21 +337,27 @@ header {
   background-clip: text;
   text-align: center;
   position: relative;
+  padding-bottom: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .dashboard h2::after {
   content: '';
   position: absolute;
-  bottom: -10px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
+  width: 60%;
   height: 3px;
   background: var(--gradient-primary);
   border-radius: 2px;
 }
 
-/* 웰컴 메시지 개선 */
+/* 웰컴 메시지 중앙 정렬 */
 .public-welcome {
   text-align: center;
   padding: 60px 20px;
@@ -288,10 +365,14 @@ header {
   border-radius: 20px;
   margin: 40px auto;
   max-width: 800px;
+  width: 100%;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .public-welcome::before {
@@ -327,7 +408,7 @@ header {
   margin-top: 30px;
 }
 
-/* 대시보드 카드 개선 */
+/* 모든 카드 완전 중앙 정렬 */
 .dashboard-card,
 .graduation-progress-card,
 .detailed-graduation-progress,
@@ -335,7 +416,7 @@ header {
   background: var(--bg-card);
   border-radius: 16px;
   padding: 24px;
-  margin: 20px 0;
+  margin: 20px auto !important;
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.3),
     0 2px 8px rgba(0, 0, 0, 0.2);
@@ -344,6 +425,13 @@ header {
   overflow: hidden;
   transition: all 0.3s ease;
   text-align: left;
+  max-width: 1000px;
+  width: 100%;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  left: 0;
+  right: 0;
 }
 
 .dashboard-card:hover,
@@ -388,12 +476,15 @@ header {
   align-items: center;
   gap: 1rem;
   margin-bottom: 0.5rem;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .progress-item span:first-child {
-  width: 80px;
+  width: 100px;
   color: var(--text-primary);
   font-weight: 500;
+  text-align: left;
 }
 
 .progress-bar-container {
@@ -452,9 +543,14 @@ header {
 }
 
 /* --- 졸업요건 페이지 스타일 --- */
+/* 폼 요소들 중앙 정렬 */
 .add-course-form {
   display: flex;
   gap: 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .add-course-form select {
@@ -494,7 +590,9 @@ header {
 .taken-courses-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
 }
 
 .taken-courses-list li {
@@ -539,20 +637,28 @@ header {
   padding: 12px 16px;
   border-radius: 8px;
   border-left: 4px solid var(--danger-color);
-  margin: 16px 0;
+  margin: 16px auto;
   font-weight: 500;
   text-align: center;
+  max-width: 800px;
 }
 
 /* --- 추천 시스템 스타일 --- */
+/* 추천 시스템 중앙 정렬 */
 .recommended-courses {
-  margin: 20px 0;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 1000px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .recommendation-categories {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  width: 100%;
 }
 
 .section-title {
@@ -748,11 +854,27 @@ header {
   color: var(--text-muted);
   background: var(--bg-secondary);
   border-radius: 10px;
-  margin: 20px 0;
+  margin: 20px auto;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 800px;
 }
 
 /* --- 상세 졸업 진행도 스타일 --- */
+/* 상세 진행도 중앙 정렬 */
+.detailed-graduation-progress {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px auto !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 1000px;
+  width: 100%;
+  display: block;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .progress-header-section {
   display: flex;
   justify-content: space-between;
@@ -760,6 +882,7 @@ header {
   margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
 }
 
 .progress-header-section h3 {
@@ -779,12 +902,14 @@ header {
   flex-direction: column;
   gap: 20px;
   margin-bottom: 24px;
+  width: 100%;
 }
 
 .detailed-progress-item {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
 }
 
 .detailed-progress-item.total-progress {
@@ -843,8 +968,9 @@ header {
   background: var(--bg-secondary);
   padding: 16px;
   border-radius: 8px;
-  margin: 16px 0 24px 0;
+  margin: 16px auto 24px auto;
   border-left: 4px solid var(--primary-color);
+  max-width: 800px;
 }
 
 .semester-info p {
@@ -871,8 +997,9 @@ header {
   background: var(--bg-card);
   border-radius: 12px;
   padding: 20px;
-  margin: 30px 0;
+  margin: 30px auto;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 1000px;
 }
 
 .semester-tips h4 {
@@ -898,6 +1025,39 @@ header {
   color: var(--text-primary);
 }
 
+/* 메인 페이지 요소들 중앙 정렬 */
+main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main h2 {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+/* 강제 중앙 정렬을 위한 추가 스타일 */
+.dashboard > * {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* 카드 내부 컨텐츠 정렬 */
+.dashboard-card > *,
+.graduation-progress-card > *,
+.detailed-graduation-progress > *,
+.recommendation-section > * {
+  width: 100%;
+}
+
 /* 스크롤바 개선 */
 ::-webkit-scrollbar {
   width: 12px;
@@ -918,10 +1078,17 @@ header {
   background: var(--primary-light);
 }
 
-/* 반응형 디자인 */
+/* 반응형 중앙 정렬 */
 @media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+    align-items: center;
+  }
+  
   .dashboard {
     padding: 10px;
+    margin: 0 auto;
+    align-items: center;
   }
   
   .dashboard h2 {
@@ -937,7 +1104,15 @@ header {
   .detailed-graduation-progress,
   .recommendation-section {
     padding: 16px;
-    margin: 10px 0;
+    margin: 10px auto !important;
+    width: calc(100% - 20px);
+    max-width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .dashboard h2::after {
+    width: min(200px, 70%);
   }
 
   .progress-header-section {
@@ -954,10 +1129,76 @@ header {
 
   .public-welcome {
     padding: 40px 15px;
-    margin: 20px 10px;
+    margin: 20px auto;
+    width: calc(100% - 20px);
+    max-width: 100%;
   }
 
   .public-welcome h2 {
     font-size: 2em;
   }
+
+  .brand-section {
+    gap: 8px;
+  }
+  
+  .logo {
+    height: 32px;
+  }
+  
+  .header-title {
+    font-size: 1.4em;
+  }
+
+  .header-content {
+    gap: 8px;
+  }
+
+  header {
+    margin: 0 auto 1rem auto;
+    width: calc(100% - 20px);
+    max-width: 100%;
+  }
+
+  main {
+    padding: 10px;
+    align-items: center;
+  }
+
+  .add-course-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-title {
+    display: none;
+  }
+
+  .dashboard-card,
+  .graduation-progress-card,
+  .detailed-graduation-progress,
+  .recommendation-section {
+    margin: 10px auto !important;
+    width: calc(100% - 10px);
+  }
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.dashboard-logo {
+  height: 50px;
+  width: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.dashboard-header h2 {
+  margin: 0;
 }

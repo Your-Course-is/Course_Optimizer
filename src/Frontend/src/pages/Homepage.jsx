@@ -46,7 +46,10 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <h2>{userInfo.year}학년 {userName}님의 대시보드</h2>
+      <div className="dashboard-header">
+        <h2>{userInfo.year}학년 {userName}님의 대시보드</h2>
+      </div>
+      
       <GraduationProgressCard takenCourses={takenCourses} />
       <RecommendedCourses takenCourses={takenCourses} userYear={userInfo.year} />
     </div>
