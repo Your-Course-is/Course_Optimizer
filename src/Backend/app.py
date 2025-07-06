@@ -166,16 +166,16 @@ def get_next_semester_courses(current_user):
             'required': [
                 {
                     'id': 1,
-                    'name': '자료구조',
-                    'code': 'CS201',
+                    'name': '공학통계',
+                    'code': 'IE2400211',
                     'credits': 3,
                     'description': '기본 자료구조와 알고리즘을 학습합니다.',
                     'reason': '전공 필수 과목입니다.'
                 },
                 {
                     'id': 2,
-                    'name': '데이터베이스',
-                    'code': 'CS301',
+                    'name': '경영과학',
+                    'code': 'IE2400217',
                     'credits': 3,
                     'description': '데이터베이스 설계와 관리를 학습합니다.',
                     'reason': '전공 필수 과목입니다.'
@@ -184,21 +184,21 @@ def get_next_semester_courses(current_user):
             'prerequisiteReady': [
                 {
                     'id': 3,
-                    'name': '웹프로그래밍',
-                    'code': 'CS250',
+                    'name': '제조공학응용',
+                    'code': 'IE3600660',
                     'credits': 3,
                     'description': '웹 개발의 기초를 학습합니다.',
-                    'reason': '프로그래밍 기초 과목을 이수했습니다.'
+                    'reason': '제조공학 과목을 학습했습니다.'
                 }
             ],
             'electives': [
                 {
                     'id': 4,
-                    'name': '인공지능개론',
-                    'code': 'CS401',
+                    'name': '산업데이터과학',
+                    'code': 'IE3500627',
                     'credits': 3,
-                    'description': 'AI의 기본 개념을 학습합니다.',
-                    'reason': '학점 이수를 위한 선택과목입니다.'
+                    'description': '산업 전반에 걸친 데이터분석 관련 기법을 배웁니다.',
+                    'reason': '2-2에 들어놓으면 앞으로의 강의를 수강할때 기틀을 잡을 수 있습니다.'
                 }
             ]
         }

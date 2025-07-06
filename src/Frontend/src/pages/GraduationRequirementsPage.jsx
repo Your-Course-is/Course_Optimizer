@@ -100,11 +100,11 @@ export default function GraduationRequirementsPage() {
   // 상세한 졸업 진행도 컴포넌트
   const DetailedGraduationProgress = ({ takenCourses }) => {
     const requirements = {
-      total: 130,
-      '전공기초': 15,
-      '전공필수': 30,
-      '전공선택': 30,
-      '교양필수': 15,
+      total: 137,
+      '전공기초': 25,
+      '전공필수': 36,
+      '전공선택': 45,
+      '교양필수': 10,
       '교양선택': 15,
     };
 
@@ -230,7 +230,7 @@ export default function GraduationRequirementsPage() {
             >
               {availableCourses.map(course => (
                 <option key={course.id} value={course.id}>
-                  {course.name} ({course.category}) · {course.credit}학점
+                  [{course.semester}] {course.name} ({course.category}) · {course.credit}학점
                 </option>
               ))}
             </select>
@@ -247,7 +247,7 @@ export default function GraduationRequirementsPage() {
           {takenCourses.map(course => (
             <li key={course.id}>
               <span>
-                {course.name} ({course.category}) <b style={{color:'#888'}}>· {course.credit}학점</b>
+                [{course.semester}] {course.name} ({course.category}) <b style={{color:'#888'}}>· {course.credit}학점</b>
               </span>
               <button onClick={() => handleDeleteCourse(course.id)} className="delete-btn">삭제</button>
             </li>
